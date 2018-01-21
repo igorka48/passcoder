@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#aa000000"
+    tools:context="owlsdevelopers.org.passcoder.ui.AddPasscodeFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@android:color/white">
+
+    <EditText
+        android:id="@+id/passcodeField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:ems="10"
+        android:inputType="textUri"
+        android:hint="enter passcode" />
+
+    <EditText
+        android:id="@+id/descriptionField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="64dp"
+        android:layout_below="@+id/passcodeField"
+        android:layout_marginTop="32dp"
+        android:gravity="bottom"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:hint="enter description" />
+
+    <Button
+        android:id="@+id/postButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionField"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="32dp"
+        android:text="Post" />
+    </RelativeLayout>
+</RelativeLayout>

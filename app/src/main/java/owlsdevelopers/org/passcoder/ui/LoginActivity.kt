@@ -1,4 +1,4 @@
-package owlsdevelopers.org.passcoder
+package owlsdevelopers.org.passcoder.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -7,22 +7,12 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.tasks.Task
 import android.content.Intent
 import android.util.Log
-import android.support.design.widget.Snackbar
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.AuthResult
-import android.support.annotation.NonNull
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.AuthCredential
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-
-
-
-
+import owlsdevelopers.org.passcoder.R
 
 
 class LoginActivity : AppCompatActivity() {

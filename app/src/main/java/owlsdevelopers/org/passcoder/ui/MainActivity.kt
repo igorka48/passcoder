@@ -1,4 +1,4 @@
-package owlsdevelopers.org.passcoder
+package owlsdevelopers.org.passcoder.ui
 
 import android.content.Context
 import android.content.Intent
@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
+import owlsdevelopers.org.passcoder.R
 
 class MainActivity : AppCompatActivity() {
 
