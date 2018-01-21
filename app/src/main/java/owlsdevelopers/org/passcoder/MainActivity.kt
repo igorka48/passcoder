@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                 .requestEmail()
                 .build()
         GoogleSignIn.getClient(this, gso).signOut()
+        startActivity(LoginActivity.getIntent(this))
         finish()
     }
 }
