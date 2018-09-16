@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "LoginActivity"
-        val RC_SIGN_IN = 1
+        const val RC_SIGN_IN = 1
         fun getIntent(context: Context): Intent {
             val intent = Intent(context, LoginActivity::class.java)
             return intent
@@ -56,7 +56,8 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -93,7 +94,6 @@ class LoginActivity : AppCompatActivity() {
                         //Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
                         //updateUI(null)
                     }
-
                     // ...
                 }
     }
