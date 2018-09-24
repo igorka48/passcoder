@@ -3,12 +3,20 @@ package owlsdevelopers.org.passcoder.ui
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import kotlinx.android.synthetic.main.fragment_add_passcode.*
 
 import owlsdevelopers.org.passcoder.R
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import owlsdevelopers.org.passcoder.model.Passcode
+
 
 /**
  * A simple [Fragment] subclass.
@@ -18,7 +26,7 @@ import owlsdevelopers.org.passcoder.R
  * Use the [AddPasscodeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AddPasscodeFragment : Fragment() {
+class AddPasscodeFragment : DialogFragment() {
 
     // TODO: Rename and change types of parameters
     private var mParam1: String? = null
@@ -26,12 +34,16 @@ class AddPasscodeFragment : Fragment() {
 
     private var mListener: OnFragmentInteractionListener? = null
 
+    private var mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference("passcodes");
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
             mParam1 = arguments!!.getString(ARG_PARAM1)
             mParam2 = arguments!!.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,6 +51,27 @@ class AddPasscodeFragment : Fragment() {
     }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        cancelButton.setOnClickListener { hideDialog() }
+        postButton.setOnClickListener { postCode() }
+    }
+
+    private fun postCode() {
+        val passcode = Passcode(passcodeField.text.toString(), descriptionField.text.toString(), 0, System.currentTimeMillis())
+        mDatabase.push().setValue(passcode).addOnCompleteListener {
+            t -> if(t.isSuccessful) hideDialog() else showError(t.exception?.localizedMessage)
+        }
+    }
+
+    private fun showError(localizedMessage: String?) {
+        Toast.makeText(context, localizedMessage, Toast.LENGTH_LONG).show()
+        Log.d("passcoder", localizedMessage)
+    }
+
+    private fun hideDialog() {
+        this.dismiss()
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
@@ -49,11 +82,11 @@ class AddPasscodeFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            mListener = context
-        } else {
-            throw RuntimeException(context!!.toString() + " must implement OnFragmentInteractionListener")
-        }
+//        if (context is OnFragmentInteractionListener) {
+//            mListener = context
+//        } else {
+//            throw RuntimeException(context!!.toString() + " must implement OnFragmentInteractionListener")
+//        }
     }
 
     override fun onDetach() {
@@ -90,11 +123,9 @@ class AddPasscodeFragment : Fragment() {
          * @return A new instance of fragment AddPasscodeFragment.
          */
         // TODO: Rename and change types and number of parameters
-        fun newInstance(param1: String, param2: String): AddPasscodeFragment {
+        fun newInstance(): AddPasscodeFragment {
             val fragment = AddPasscodeFragment()
             val args = Bundle()
-            args.putString(ARG_PARAM1, param1)
-            args.putString(ARG_PARAM2, param2)
             fragment.arguments = args
             return fragment
         }
