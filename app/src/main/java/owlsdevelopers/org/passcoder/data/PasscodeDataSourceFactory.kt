@@ -1,6 +1,6 @@
 package owlsdevelopers.org.passcoder.data
 
-import android.arch.paging.DataSource
+import androidx.paging.DataSource
 import com.google.firebase.database.DatabaseReference
 import owlsdevelopers.org.passcoder.model.Passcode
 

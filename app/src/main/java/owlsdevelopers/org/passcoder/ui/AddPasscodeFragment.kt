@@ -3,18 +3,18 @@ package owlsdevelopers.org.passcoder.ui
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.Fragment
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_add_passcode.*
 
 import owlsdevelopers.org.passcoder.R
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.fragment_add_passcode.*
 import owlsdevelopers.org.passcoder.model.Passcode
 
 
@@ -26,7 +26,7 @@ import owlsdevelopers.org.passcoder.model.Passcode
  * Use the [AddPasscodeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AddPasscodeFragment : DialogFragment() {
+class AddPasscodeFragment : androidx.fragment.app.DialogFragment() {
 
     // TODO: Rename and change types of parameters
     private var mParam1: String? = null
