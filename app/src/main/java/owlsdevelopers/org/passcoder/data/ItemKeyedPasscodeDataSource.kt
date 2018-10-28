@@ -12,22 +12,28 @@ class ItemKeyedPasscodeDataSource(
         private val userName: String)
     : ItemKeyedDataSource<Long, Passcode>() {
     override fun loadInitial(params: LoadInitialParams<Long>, callback: LoadInitialCallback<Passcode>) {
-        databaseReference.orderByChild("additionTime").startAt(params.requestedInitialKey.toString()).limitToFirst(params.requestedLoadSize).addValueEventListener(
+        databaseReference.addValueEventListener(
                 object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
 
                     }
+
                     override fun onDataChange(p0: DataSnapshot) {
-                        val td = p0.value as HashMap<String, Passcode>
-                        val values = td.values as List<Passcode>
-                        callback.onResult(values)
+                        val result = mutableListOf<Passcode>()
+                        for (ds in p0.children) {
+                            val code = ds.getValue(Passcode::class.java)
+                            code?.let {
+                                result.add(it)
+                            }
+                        }
+                        callback.onResult(result)
                     }
                 }
         )
     }
 
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Passcode>) {
-        databaseReference.orderByChild("additionTime").startAt(params.key.toString()).limitToFirst(params.requestedLoadSize).addValueEventListener(
+        databaseReference.startAt(params.key.toString()).limitToFirst(params.requestedLoadSize).addValueEventListener(
                 object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
 
@@ -35,9 +41,13 @@ class ItemKeyedPasscodeDataSource(
                     }
 
                     override fun onDataChange(p0: DataSnapshot) {
-                        val td = p0.value as HashMap<String, Passcode>
-                        val values = td.values as List<Passcode>
-                        callback.onResult(values)
+                        val result = mutableListOf<Passcode>()
+                        for (ds in p0.children) {
+                            val code = ds.getValue(Passcode::class.java)
+                            code?.let {
+                                result.add(it)
+                            }
+                        }
                     }
                 }
         )
@@ -45,7 +55,6 @@ class ItemKeyedPasscodeDataSource(
     }
 
     override fun loadBefore(params: LoadParams<Long>, callback: LoadCallback<Passcode>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun getKey(item: Passcode): Long {

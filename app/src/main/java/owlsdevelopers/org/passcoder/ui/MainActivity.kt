@@ -27,6 +27,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        addCodeFab.setOnClickListener { showAddCodeDialog() }
+    }
+    private fun showAddCodeDialog() {
+        val newFragment = AddPasscodeFragment.newInstance()
+        newFragment.isCancelable = false
+        newFragment.show(supportFragmentManager, "dialog")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
