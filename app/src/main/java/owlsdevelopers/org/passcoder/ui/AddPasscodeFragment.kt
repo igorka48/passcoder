@@ -59,7 +59,7 @@ class AddPasscodeFragment : androidx.fragment.app.DialogFragment() {
 
     private fun postCode() {
         val passcode = Passcode(passcodeField.text.toString(), descriptionField.text.toString(), 0, System.currentTimeMillis())
-        mDatabase.setValue(passcode).addOnCompleteListener {
+        mDatabase.push().setValue(passcode).addOnCompleteListener {
             t -> if(t.isSuccessful) hideDialog() else showError(t.exception?.localizedMessage)
         }
     }

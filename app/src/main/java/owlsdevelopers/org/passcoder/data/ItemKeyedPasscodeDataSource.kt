@@ -12,7 +12,7 @@ class ItemKeyedPasscodeDataSource(
         private val userName: String)
     : ItemKeyedDataSource<Long, Passcode>() {
     override fun loadInitial(params: LoadInitialParams<Long>, callback: LoadInitialCallback<Passcode>) {
-        databaseReference.addValueEventListener(
+        databaseReference.addListenerForSingleValueEvent(
                 object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
 
@@ -33,7 +33,7 @@ class ItemKeyedPasscodeDataSource(
     }
 
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Passcode>) {
-        databaseReference.startAt(params.key.toString()).limitToFirst(params.requestedLoadSize).addValueEventListener(
+        databaseReference.startAt(params.key.toString()).limitToFirst(params.requestedLoadSize).addListenerForSingleValueEvent(
                 object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
 
