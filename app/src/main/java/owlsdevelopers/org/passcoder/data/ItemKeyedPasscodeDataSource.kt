@@ -1,56 +1,30 @@
 package owlsdevelopers.org.passcoder.data
 
 import androidx.paging.ItemKeyedDataSource
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.*
 import owlsdevelopers.org.passcoder.model.Passcode
+import owlsdevelopers.org.passcoder.model.repository.PasscodeRepository
 
 class ItemKeyedPasscodeDataSource(
-        private val databaseReference: DatabaseReference,
+        private val repository: PasscodeRepository,
         private val userName: String)
     : ItemKeyedDataSource<Long, Passcode>() {
     override fun loadInitial(params: LoadInitialParams<Long>, callback: LoadInitialCallback<Passcode>) {
-        databaseReference.addListenerForSingleValueEvent(
-                object : ValueEventListener {
-                    override fun onCancelled(p0: DatabaseError) {
-
-                    }
-
-                    override fun onDataChange(p0: DataSnapshot) {
-                        val result = mutableListOf<Passcode>()
-                        for (ds in p0.children) {
-                            val code = ds.getValue(Passcode::class.java)
-                            code?.let {
-                                result.add(it)
-                            }
-                        }
-                        callback.onResult(result)
-                    }
-                }
-        )
+        runBlocking {
+            val result = GlobalScope.async {
+                repository.getPasscodes()
+            }.await()
+            callback.onResult(result)
+        }
     }
 
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Passcode>) {
-        databaseReference.startAt(params.key.toString()).limitToFirst(params.requestedLoadSize).addListenerForSingleValueEvent(
-                object : ValueEventListener {
-                    override fun onCancelled(p0: DatabaseError) {
-
-
-                    }
-
-                    override fun onDataChange(p0: DataSnapshot) {
-                        val result = mutableListOf<Passcode>()
-                        for (ds in p0.children) {
-                            val code = ds.getValue(Passcode::class.java)
-                            code?.let {
-                                result.add(it)
-                            }
-                        }
-                    }
-                }
-        )
+        runBlocking {
+            val result = GlobalScope.async {
+                repository.getPasscodes(params.key.toString(), params.requestedLoadSize)
+            }.await()
+            callback.onResult(result)
+        }
 
     }
 

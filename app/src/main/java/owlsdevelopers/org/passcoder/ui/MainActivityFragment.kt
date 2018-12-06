@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_main.*
 import owlsdevelopers.org.passcoder.R
 import owlsdevelopers.org.passcoder.data.PasscodeDataSourceFactory
+import owlsdevelopers.org.passcoder.data.repository.FirebasePasscodeRepository
 import owlsdevelopers.org.passcoder.model.Passcode
 
 
@@ -26,6 +27,7 @@ import owlsdevelopers.org.passcoder.model.Passcode
 class MainActivityFragment : Fragment(), PasscodeAdapter.Callback {
 
     private var mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference("passcodes")
+    private var passcodeRepository = FirebasePasscodeRepository(mDatabase)
 
     private var viewModel: PasscodesListViewModel? = null
 
@@ -44,7 +46,7 @@ class MainActivityFragment : Fragment(), PasscodeAdapter.Callback {
     private fun initRecyclerView() {
         val adapter = PasscodeAdapter(this)
         recyclerView.adapter = adapter
-        viewModel = PasscodesListViewModel(PasscodeDataSourceFactory(mDatabase, ""))
+        viewModel = PasscodesListViewModel(PasscodeDataSourceFactory(passcodeRepository, ""))
         viewModel?.livePagedListOfNames?.observe(this, Observer<PagedList<Passcode>> {
             if (swipeRefresh.isRefreshing)
                 swipeRefresh.isRefreshing = false
