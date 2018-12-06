@@ -12,6 +12,11 @@ import kotlin.coroutines.resumeWithException
 
 
 class FirebasePasscodeRepository(private val databaseReference: DatabaseReference) : PasscodeRepository {
+    override suspend fun addPasscode(passcode: Passcode): Boolean = suspendCancellableCoroutine { continuation ->
+        databaseReference.push().setValue(passcode).addOnCompleteListener {
+            t -> if(t.isSuccessful) continuation.resume(true) else continuation.resumeWithException(t.exception!!)
+        }
+    }
 
     override suspend fun getPasscodes(fromKey: String, limit: Int): List<Passcode> = suspendCancellableCoroutine { continuation ->
         databaseReference.startAt(fromKey).limitToFirst(limit).addListenerForSingleValueEvent(

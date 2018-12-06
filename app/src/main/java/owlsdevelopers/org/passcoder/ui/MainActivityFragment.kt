@@ -26,6 +26,7 @@ import owlsdevelopers.org.passcoder.model.Passcode
  */
 class MainActivityFragment : Fragment(), PasscodeAdapter.Callback {
 
+    //TODO: Add depedency injection
     private var mDatabase: DatabaseReference = FirebaseDatabase.getInstance().getReference("passcodes")
     private var passcodeRepository = FirebasePasscodeRepository(mDatabase)
 
