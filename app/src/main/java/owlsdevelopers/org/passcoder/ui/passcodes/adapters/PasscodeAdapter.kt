@@ -1,8 +1,7 @@
-package owlsdevelopers.org.passcoder.ui;
+package owlsdevelopers.org.passcoder.ui.passcodes.adapters;
 
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

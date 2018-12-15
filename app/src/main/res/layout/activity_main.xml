@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="owlsdevelopers.org.passcoder.ui.MainActivity">
+    tools:context="owlsdevelopers.org.passcoder.ui.passcodes.activities.PasscodesActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

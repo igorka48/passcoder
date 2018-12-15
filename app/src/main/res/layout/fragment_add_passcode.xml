@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="#aa000000"
-    tools:context="owlsdevelopers.org.passcoder.ui.AddPasscodeFragment">
+    tools:context="owlsdevelopers.org.passcoder.ui.addpasscode.AddPasscodeFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

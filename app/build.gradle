@@ -26,8 +26,8 @@ def firebase_core_version = '16.0.6'
 def firebase_auth_version = '16.0.5'
 def firebase_crash_version = '16.2.1'
 def firebase_db_version = '16.0.5'
-
-def support_lib_version = '28.0.0-rc02'
+def koin_version = '1.0.2'
+def lifecycle_version = "2.0.0"
 
 
 
@@ -44,17 +44,22 @@ dependencies {
 
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation 'androidx.paging:paging-runtime:2.1.0-beta01'
+
+
     // Add dependency
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.7'
-
-
+    
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1"
 
+    // Koin for Kotlin
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    // Koin for Unit tests
+    // testImplementation "org.koin:koin-test:$koin_version"
 }
 
 

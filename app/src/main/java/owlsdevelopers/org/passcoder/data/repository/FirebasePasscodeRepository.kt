@@ -6,19 +6,19 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import owlsdevelopers.org.passcoder.model.Passcode
 import owlsdevelopers.org.passcoder.model.repository.PasscodeRepository
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 
 class FirebasePasscodeRepository(private val databaseReference: DatabaseReference) : PasscodeRepository {
-    override suspend fun addPasscode(passcode: Passcode): Boolean = suspendCancellableCoroutine { continuation ->
+    override suspend fun addPasscode(passcode: Passcode): Boolean = suspendCoroutine { continuation ->
         databaseReference.push().setValue(passcode).addOnCompleteListener {
             t -> if(t.isSuccessful) continuation.resume(true) else continuation.resumeWithException(t.exception!!)
         }
     }
 
-    override suspend fun getPasscodes(fromKey: String, limit: Int): List<Passcode> = suspendCancellableCoroutine { continuation ->
+    override suspend fun getPasscodes(fromKey: String, limit: Int): List<Passcode> = suspendCoroutine { continuation ->
         databaseReference.startAt(fromKey).limitToFirst(limit).addListenerForSingleValueEvent(
                 object : ValueEventListener {
                     override fun onCancelled(databaseError: DatabaseError) {
@@ -40,7 +40,7 @@ class FirebasePasscodeRepository(private val databaseReference: DatabaseReferenc
     }
 
 
-    override suspend fun getPasscodes(): List<Passcode> = suspendCancellableCoroutine { continuation ->
+    override suspend fun getPasscodes(): List<Passcode> = suspendCoroutine { continuation ->
         databaseReference.addListenerForSingleValueEvent(
                 object : ValueEventListener {
                     override fun onCancelled(databaseError: DatabaseError) {

@@ -1,23 +1,25 @@
-package owlsdevelopers.org.passcoder.ui
+package owlsdevelopers.org.passcoder.ui.passcodes.activities
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import owlsdevelopers.org.passcoder.R
+import owlsdevelopers.org.passcoder.ui.addpasscode.AddPasscodeFragment
+import owlsdevelopers.org.passcoder.ui.login.activities.LoginActivity
 
-class MainActivity : AppCompatActivity() {
+class PasscodesActivity : AppCompatActivity() {
 
     companion object {
-        const val TAG = "MainActivity"
+        const val TAG = "PasscodesActivity"
         fun getIntent(context: Context): Intent {
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, PasscodesActivity::class.java)
             return intent
         }
     }
