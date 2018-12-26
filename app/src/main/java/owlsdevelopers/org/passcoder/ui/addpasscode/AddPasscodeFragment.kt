@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_add_passcode.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -14,7 +15,7 @@ import owlsdevelopers.org.passcoder.model.AddCodeFormData
 import owlsdevelopers.org.passcoder.ui.addpasscode.viewmodels.AddPasscodeViewModel
 
 
-class AddPasscodeFragment : androidx.fragment.app.DialogFragment() {
+class AddPasscodeFragment : DialogFragment() {
 
     val viewModel by viewModel<AddPasscodeViewModel>()
 

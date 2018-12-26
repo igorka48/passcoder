@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import owlsdevelopers.org.passcoder.R
 import owlsdevelopers.org.passcoder.model.Passcode
+import owlsdevelopers.org.passcoder.ui.actions.ActionsFragment
 import owlsdevelopers.org.passcoder.ui.passcodes.adapters.PasscodeAdapter
 import owlsdevelopers.org.passcoder.ui.passcodes.viewmodels.PasscodesListViewModel
 
@@ -35,6 +36,8 @@ class PasscodesFragment : Fragment(), PasscodeAdapter.Callback {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.loadIndicator.observe(this, Observer { value -> value?.let { swipeRefresh.isRefreshing = it } })
+        viewModel.showActions.observe(this, Observer { value -> value?.let { showActionsDialog() } })
+
         viewModel.toastInfo.observe(this, Observer { value ->
             value?.let {
                 Toast.makeText(context, it, Toast.LENGTH_LONG).show()
@@ -53,10 +56,19 @@ class PasscodesFragment : Fragment(), PasscodeAdapter.Callback {
             adapter.submitList(it)
         })
     }
-
+    private fun showActionsDialog() {
+        val newFragment = ActionsFragment.newInstance()
+        newFragment.isCancelable = true
+        newFragment.show(fragmentManager, "dialog2")
+    }
 
     override fun onItemClicked(item: Passcode) {
         viewModel.onItemClicked(item)
     }
+
+    override fun onItemLongClicked(item: Passcode) {
+       viewModel.onItemLongClicked(item)
+    }
+
 
 }

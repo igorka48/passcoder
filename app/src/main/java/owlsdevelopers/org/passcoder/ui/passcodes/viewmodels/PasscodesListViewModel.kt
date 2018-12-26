@@ -16,6 +16,7 @@ class PasscodesListViewModel constructor(passcodeRepository: PasscodeRepository,
     val livePagedList: LiveData<PagedList<Passcode>>
     private val mToastInfo = SingleLiveEvent<String>()
     private val mLoadIndicator = SingleLiveEvent<Boolean>()
+    private val mShowActions = SingleLiveEvent<Boolean>()
 
     val toastInfo: LiveData<String>
         get() = mToastInfo
@@ -23,6 +24,8 @@ class PasscodesListViewModel constructor(passcodeRepository: PasscodeRepository,
     val loadIndicator: LiveData<Boolean>
         get() = mLoadIndicator
 
+    val showActions: LiveData<Boolean>
+        get() = mShowActions
 
     init {
 
@@ -47,5 +50,9 @@ class PasscodesListViewModel constructor(passcodeRepository: PasscodeRepository,
 
     fun reloadData() {
         livePagedList.value?.dataSource?.invalidate()
+    }
+
+    fun onItemLongClicked(item: Passcode) {
+        mShowActions.value = true
     }
 }

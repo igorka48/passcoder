@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import owlsdevelopers.org.passcoder.R
+import owlsdevelopers.org.passcoder.ui.actions.ActionsFragment
 import owlsdevelopers.org.passcoder.ui.addpasscode.AddPasscodeFragment
 import owlsdevelopers.org.passcoder.ui.login.activities.LoginActivity
 
@@ -31,6 +32,9 @@ class PasscodesActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         addCodeFab.setOnClickListener { showAddCodeDialog() }
     }
+
+
+
     private fun showAddCodeDialog() {
         val newFragment = AddPasscodeFragment.newInstance()
         newFragment.isCancelable = false
