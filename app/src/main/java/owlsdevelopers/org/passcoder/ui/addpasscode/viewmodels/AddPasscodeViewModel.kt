@@ -49,7 +49,7 @@ class AddPasscodeViewModel constructor(val passcodeRepository: PasscodeRepositor
     }
 
     fun cancelButtonClicked() {
-
+        mHideDialog.value = true
     }
 
     fun postButtonClicked(formData: AddCodeFormData) {
