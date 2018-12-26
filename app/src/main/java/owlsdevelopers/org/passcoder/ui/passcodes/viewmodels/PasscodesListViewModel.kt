@@ -1,17 +1,17 @@
 package owlsdevelopers.org.passcoder.ui.passcodes.viewmodels
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import owlsdevelopers.org.passcoder.data.PasscodeDataSourceFactory
 import owlsdevelopers.org.passcoder.model.Passcode
+import owlsdevelopers.org.passcoder.model.repository.ClipboardRepository
 import owlsdevelopers.org.passcoder.model.repository.PasscodeRepository
 import owlsdevelopers.org.passcoder.ui.util.SingleLiveEvent
 
 
-class PasscodesListViewModel constructor(passcodeRepository: PasscodeRepository) : ViewModel() {
+class PasscodesListViewModel constructor(passcodeRepository: PasscodeRepository, private val clipboardRepository: ClipboardRepository) : ViewModel() {
 
     val livePagedList: LiveData<PagedList<Passcode>>
     private val mToastInfo = SingleLiveEvent<String>()
@@ -41,10 +41,7 @@ class PasscodesListViewModel constructor(passcodeRepository: PasscodeRepository)
 
 
     fun onItemClicked(item: Passcode) {
-//        val clipboard = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-//        val clip = ClipData.newPlainText(item.value, item.value)
-//        clipboard.primaryClip = clip
-//        Toast.makeText(context, "Code copied to clipboard", Toast.LENGTH_LONG).show()
+        clipboardRepository.copyTextToClipboard(item.value)
         mToastInfo.value = "Code copied to clipboard"
     }
 

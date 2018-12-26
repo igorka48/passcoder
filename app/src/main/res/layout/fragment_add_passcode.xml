@@ -2,54 +2,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="#aa000000"
+    android:padding="16dp"
     tools:context="owlsdevelopers.org.passcoder.ui.addpasscode.AddPasscodeFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:background="@android:color/white">
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/passcodeField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:ems="10"
-        android:inputType="textUri"
-        android:hint="enter passcode" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passcodeFieldLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:hint="enter passcode">
 
-    <EditText
-        android:id="@+id/descriptionField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="64dp"
-        android:layout_below="@+id/passcodeField"
-        android:layout_marginTop="32dp"
-        android:gravity="bottom"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:hint="enter description" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passcodeField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textUri" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/postButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/descriptionField"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="32dp"
-        android:text="Post" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/descriptionFieldLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/passcodeFieldLayout"
+            android:layout_marginTop="32dp"
+            android:gravity="bottom"
+            android:hint="enter description">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/descriptionField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textMultiLine" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/postButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/descriptionFieldLayout"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="32dp"
+            android:text="Post" />
 
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/descriptionField"
-            android:layout_toLeftOf="@id/postButton"
+            android:layout_below="@+id/descriptionFieldLayout"
             android:layout_marginTop="32dp"
             android:layout_marginRight="32dp"
+            android:layout_toLeftOf="@id/postButton"
             android:text="Cancel" />
     </RelativeLayout>
 </RelativeLayout>

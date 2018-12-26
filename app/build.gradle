@@ -48,7 +48,7 @@ dependencies {
 
     // Add dependency
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.7'
-    
+
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1"
 
     // Koin for Kotlin
@@ -59,7 +59,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
     // Koin for Unit tests
-    // testImplementation "org.koin:koin-test:$koin_version"
+    testImplementation "org.koin:koin-test:$koin_version"
 }
 
 
