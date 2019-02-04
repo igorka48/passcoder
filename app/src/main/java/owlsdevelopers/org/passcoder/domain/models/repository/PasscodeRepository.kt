@@ -1,6 +1,6 @@
-package owlsdevelopers.org.passcoder.model.repository
+package owlsdevelopers.org.passcoder.domain.models.repository
 
-import owlsdevelopers.org.passcoder.model.Passcode
+import owlsdevelopers.org.passcoder.domain.models.Passcode
 
 interface PasscodeRepository {
     suspend fun getPasscodes(): List<Passcode>

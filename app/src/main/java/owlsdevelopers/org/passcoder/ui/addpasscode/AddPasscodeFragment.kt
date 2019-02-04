@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_add_passcode.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import owlsdevelopers.org.passcoder.R
-import owlsdevelopers.org.passcoder.model.AddCodeFormData
+import owlsdevelopers.org.passcoder.domain.models.AddCodeFormData
 import owlsdevelopers.org.passcoder.ui.addpasscode.viewmodels.AddPasscodeViewModel
 
 

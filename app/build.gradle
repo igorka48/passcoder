@@ -28,6 +28,7 @@ def firebase_crash_version = '16.2.1'
 def firebase_db_version = '16.0.5'
 def koin_version = '1.0.2'
 def lifecycle_version = "2.0.0"
+def coroutinesVersion = '1.1.0'
 
 
 
@@ -48,8 +49,8 @@ dependencies {
     // Add dependency
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.7'
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1"
-
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     // Koin for Kotlin
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 

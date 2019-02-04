@@ -1,8 +1,8 @@
 package owlsdevelopers.org.passcoder.data
 
 import androidx.paging.DataSource
-import owlsdevelopers.org.passcoder.model.Passcode
-import owlsdevelopers.org.passcoder.model.repository.PasscodeRepository
+import owlsdevelopers.org.passcoder.domain.models.Passcode
+import owlsdevelopers.org.passcoder.domain.models.repository.PasscodeRepository
 
 class PasscodeDataSourceFactory(
         private val passcodeRepository: PasscodeRepository,

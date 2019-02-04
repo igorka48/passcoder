@@ -7,8 +7,8 @@ import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import owlsdevelopers.org.passcoder.data.repository.AndroidClipboardRepository
 import owlsdevelopers.org.passcoder.data.repository.FirebasePasscodeRepository
-import owlsdevelopers.org.passcoder.model.repository.ClipboardRepository
-import owlsdevelopers.org.passcoder.model.repository.PasscodeRepository
+import owlsdevelopers.org.passcoder.domain.models.repository.ClipboardRepository
+import owlsdevelopers.org.passcoder.domain.models.repository.PasscodeRepository
 import owlsdevelopers.org.passcoder.ui.actions.viewmodels.ActionsViewModel
 import owlsdevelopers.org.passcoder.ui.addpasscode.viewmodels.AddPasscodeViewModel
 import owlsdevelopers.org.passcoder.ui.passcodes.viewmodels.PasscodesListViewModel

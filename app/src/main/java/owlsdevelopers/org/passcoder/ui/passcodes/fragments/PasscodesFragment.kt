@@ -11,7 +11,7 @@ import androidx.paging.PagedList
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import owlsdevelopers.org.passcoder.R
-import owlsdevelopers.org.passcoder.model.Passcode
+import owlsdevelopers.org.passcoder.domain.models.Passcode
 import owlsdevelopers.org.passcoder.ui.actions.ActionsFragment
 import owlsdevelopers.org.passcoder.ui.passcodes.adapters.PasscodeAdapter
 import owlsdevelopers.org.passcoder.ui.passcodes.viewmodels.PasscodesListViewModel

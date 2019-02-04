@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import owlsdevelopers.org.passcoder.data.PasscodeDataSourceFactory
-import owlsdevelopers.org.passcoder.model.Passcode
-import owlsdevelopers.org.passcoder.model.repository.ClipboardRepository
-import owlsdevelopers.org.passcoder.model.repository.PasscodeRepository
+import owlsdevelopers.org.passcoder.domain.models.Passcode
+import owlsdevelopers.org.passcoder.domain.models.repository.ClipboardRepository
+import owlsdevelopers.org.passcoder.domain.models.repository.PasscodeRepository
 import owlsdevelopers.org.passcoder.ui.util.SingleLiveEvent
 
 

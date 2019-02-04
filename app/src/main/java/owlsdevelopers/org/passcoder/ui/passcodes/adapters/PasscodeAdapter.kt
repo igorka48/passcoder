@@ -5,10 +5,9 @@ import androidx.recyclerview.widget.DiffUtil
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import kotlinx.android.synthetic.main.cell_code.view.*
 import owlsdevelopers.org.passcoder.R
-import owlsdevelopers.org.passcoder.model.Passcode
+import owlsdevelopers.org.passcoder.domain.models.Passcode
 
 
 class PasscodeAdapter(private val callback: Callback) : PagedListAdapter<Passcode, PasscodeAdapter.ViewHolder>(POST_COMPARATOR) {

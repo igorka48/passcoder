@@ -3,9 +3,9 @@ package owlsdevelopers.org.passcoder.ui.addpasscode.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
-import owlsdevelopers.org.passcoder.model.AddCodeFormData
-import owlsdevelopers.org.passcoder.model.Passcode
-import owlsdevelopers.org.passcoder.model.repository.PasscodeRepository
+import owlsdevelopers.org.passcoder.domain.models.AddCodeFormData
+import owlsdevelopers.org.passcoder.domain.models.Passcode
+import owlsdevelopers.org.passcoder.domain.models.repository.PasscodeRepository
 import owlsdevelopers.org.passcoder.ui.util.SingleLiveEvent
 
 
