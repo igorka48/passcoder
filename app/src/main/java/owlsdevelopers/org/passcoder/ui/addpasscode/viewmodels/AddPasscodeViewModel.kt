@@ -3,13 +3,15 @@ package owlsdevelopers.org.passcoder.ui.addpasscode.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
+import owlsdevelopers.org.passcoder.domain.core.UseCaseExceptionHandler
 import owlsdevelopers.org.passcoder.domain.models.AddCodeFormData
 import owlsdevelopers.org.passcoder.domain.models.Passcode
 import owlsdevelopers.org.passcoder.domain.models.repository.PasscodeRepository
+import owlsdevelopers.org.passcoder.domain.usecases.AddPasscode
 import owlsdevelopers.org.passcoder.ui.util.SingleLiveEvent
 
 
-class AddPasscodeViewModel constructor(val passcodeRepository: PasscodeRepository) : ViewModel() {
+class AddPasscodeViewModel constructor(val addPasscode: AddPasscode) : ViewModel() {
 
     private val mErrorMessage = SingleLiveEvent<String>()
     private val mLoadIndicator = SingleLiveEvent<Boolean>()
@@ -24,30 +26,6 @@ class AddPasscodeViewModel constructor(val passcodeRepository: PasscodeRepositor
     val hideDialog: LiveData<Boolean>
         get() = mHideDialog
 
-
-    /**
-     * This is the job for all coroutines started by this ViewModel.
-     *
-     * Cancelling this job will cancel all coroutines started by this ViewModel.
-     */
-    private val viewModelJob = Job()
-
-    /**
-     * This is the main scope for all coroutines launched by MainViewModel.
-     *
-     * Since we pass viewModelJob, you can cancel all coroutines launched by uiScope by calling
-     * viewModelJob.cancel()
-     */
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-    /**
-     * Cancel all coroutines when the ViewModel is cleared
-     */
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
-
     fun cancelButtonClicked() {
         mHideDialog.value = true
     }
@@ -59,13 +37,14 @@ class AddPasscodeViewModel constructor(val passcodeRepository: PasscodeRepositor
 
     private fun postCode(formData: AddCodeFormData) {
         val passcode = Passcode(formData.code, formData.description, 0, System.currentTimeMillis())
-        val handler = CoroutineExceptionHandler { _, exception ->
+        val handler = UseCaseExceptionHandler { _, exception ->
             mErrorMessage.value = exception.localizedMessage
         }
-        uiScope.launch(handler) {
-            val success = passcodeRepository.addPasscode(passcode)
+        mLoadIndicator.value = true
+        addPasscode(AddPasscode.Params(passcode), handler) { success ->
             if (success) {
                 mHideDialog.value = true
+                mLoadIndicator.value = false
             }
         }
     }

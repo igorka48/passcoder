@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
@@ -39,7 +41,12 @@ class AddPasscodeFragment : DialogFragment() {
         })
         viewModel.hideDialog.observe(this, Observer { value ->
             value?.let {
-                if(it)hideDialog()
+                if (it) hideDialog()
+            }
+        })
+        viewModel.loadIndicator.observe(this, Observer { value ->
+            value?.let {
+                progressView.visibility = if (it) VISIBLE else GONE
             }
         })
     }

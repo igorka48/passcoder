@@ -1,19 +1,19 @@
 package owlsdevelopers.org.passcoder.ui.passcodes.viewmodels
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import owlsdevelopers.org.passcoder.data.PasscodeDataSourceFactory
+import owlsdevelopers.org.passcoder.domain.core.PagedData
+import owlsdevelopers.org.passcoder.domain.models.NetworkState
 import owlsdevelopers.org.passcoder.domain.models.Passcode
 import owlsdevelopers.org.passcoder.domain.models.repository.ClipboardRepository
-import owlsdevelopers.org.passcoder.domain.models.repository.PasscodeRepository
+import owlsdevelopers.org.passcoder.domain.usecases.GetPasscodes
 import owlsdevelopers.org.passcoder.ui.util.SingleLiveEvent
 
 
-class PasscodesListViewModel constructor(passcodeRepository: PasscodeRepository, private val clipboardRepository: ClipboardRepository) : ViewModel() {
+class PasscodesListViewModel constructor(getPasscodes: GetPasscodes, private val clipboardRepository: ClipboardRepository) : ViewModel() {
 
-    val livePagedList: LiveData<PagedList<Passcode>>
     private val mToastInfo = SingleLiveEvent<String>()
     private val mLoadIndicator = SingleLiveEvent<Boolean>()
     private val mShowActions = SingleLiveEvent<Boolean>()
@@ -27,20 +27,40 @@ class PasscodesListViewModel constructor(passcodeRepository: PasscodeRepository,
     val showActions: LiveData<Boolean>
         get() = mShowActions
 
-    init {
 
-        val dataSourceFactory = PasscodeDataSourceFactory(passcodeRepository, "")
-
-        val pagedListConfig = PagedList.Config.Builder()
-                .setEnablePlaceholders(true)
-                .setInitialLoadSizeHint(30)
-                .setPageSize(20)
-                .build()
-
-
-        livePagedList = LivePagedListBuilder(dataSourceFactory, pagedListConfig)
-                .build()
+    companion object {
+        private const val PAGED_LIST_PAGE_SIZE = 20
+        private const val PAGED_LIST_LOAD_SIZE = 30
+        private const val PAGED_LIST_ENABLE_PLACEHOLDERS = true
     }
+
+    val networkState: MediatorLiveData<NetworkState> = MediatorLiveData()
+    val initialState: MediatorLiveData<NetworkState> = MediatorLiveData()
+    val livePagedList: MediatorLiveData<PagedList<Passcode>> = MediatorLiveData()
+
+    private var pagedData: PagedData<Passcode>? = null
+
+    init {
+        val pagedListConfig = PagedList.Config.Builder()
+                .setEnablePlaceholders(PAGED_LIST_ENABLE_PLACEHOLDERS)
+                .setInitialLoadSizeHint(PAGED_LIST_LOAD_SIZE)
+                .setPageSize(PAGED_LIST_PAGE_SIZE)
+                .build()
+
+        getPasscodes(GetPasscodes.Params(username = "", pagedListConfig = pagedListConfig)) { handleListData(it) }
+    }
+
+    private fun handleListData(data: PagedData<Passcode>) {
+        pagedData = data
+        livePagedList.addSource(data.getData()) { livePagedList.value = it }
+        networkState.addSource(data.getLoadState()) { networkState.value = it }
+        initialState.addSource(data.getInitialLoadState()) { initialState.value = it }
+    }
+
+    fun reloadData() {
+        pagedData?.invalidate()
+    }
+
 
 
     fun onItemClicked(item: Passcode) {
@@ -48,9 +68,6 @@ class PasscodesListViewModel constructor(passcodeRepository: PasscodeRepository,
         mToastInfo.value = "Code copied to clipboard"
     }
 
-    fun reloadData() {
-        livePagedList.value?.dataSource?.invalidate()
-    }
 
     fun onItemLongClicked(item: Passcode) {
         mShowActions.value = true

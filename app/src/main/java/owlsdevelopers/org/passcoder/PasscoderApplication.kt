@@ -9,6 +9,8 @@ import owlsdevelopers.org.passcoder.data.repository.AndroidClipboardRepository
 import owlsdevelopers.org.passcoder.data.repository.FirebasePasscodeRepository
 import owlsdevelopers.org.passcoder.domain.models.repository.ClipboardRepository
 import owlsdevelopers.org.passcoder.domain.models.repository.PasscodeRepository
+import owlsdevelopers.org.passcoder.domain.usecases.AddPasscode
+import owlsdevelopers.org.passcoder.domain.usecases.GetPasscodes
 import owlsdevelopers.org.passcoder.ui.actions.viewmodels.ActionsViewModel
 import owlsdevelopers.org.passcoder.ui.addpasscode.viewmodels.AddPasscodeViewModel
 import owlsdevelopers.org.passcoder.ui.passcodes.viewmodels.PasscodesListViewModel
@@ -34,9 +36,13 @@ class PasscoderApplication : Application() {
             viewModel { PasscodesListViewModel(get(), get()) }
             viewModel { AddPasscodeViewModel(get()) }
             viewModel { ActionsViewModel(get()) }
-
         }
 
-        startKoin(this, listOf(dataModule, viewModule))
+        val useCaseModule = module {
+            single { AddPasscode(get()) }
+            single { GetPasscodes(get()) }
+        }
+
+        startKoin(this, listOf(dataModule, viewModule, useCaseModule))
     }
 }
