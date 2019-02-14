@@ -8,12 +8,17 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.fragment_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import owlsdevelopers.org.passcoder.R
 import owlsdevelopers.org.passcoder.ui.passcodes.activities.PasscodesActivity
+import owlsdevelopers.org.passcoder.ui.passcodes.viewmodels.PasscodesListViewModel
 
 
 class LoginActivity : AppCompatActivity() {
@@ -29,12 +34,22 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    val viewModel by viewModel<PasscodesListViewModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        loginButton.setOnClickListener { login() }
 
+        viewModel.loadIndicator.observe(this, Observer { value -> value?.let { swipeRefresh.isRefreshing = it } })
+
+        viewModel.toastInfo.observe(this, Observer { value ->
+            value?.let {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            }
+        })
+
+        loginButton.setOnClickListener { login() }
     }
 
     public override fun onStart() {

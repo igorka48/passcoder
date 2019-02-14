@@ -10,10 +10,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import owlsdevelopers.org.passcoder.R
-import owlsdevelopers.org.passcoder.ui.actions.ActionsFragment
 import owlsdevelopers.org.passcoder.ui.addpasscode.AddPasscodeFragment
 import owlsdevelopers.org.passcoder.ui.login.activities.LoginActivity
+import owlsdevelopers.org.passcoder.ui.passcodes.viewmodels.PasscodesViewModel
 
 class PasscodesActivity : AppCompatActivity() {
 
@@ -24,6 +25,8 @@ class PasscodesActivity : AppCompatActivity() {
             return intent
         }
     }
+
+    val viewModel by viewModel<PasscodesViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +46,7 @@ class PasscodesActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.main, menu)
         return true
     }
 

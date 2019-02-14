@@ -6,7 +6,7 @@ import owlsdevelopers.org.passcoder.domain.core.AndroidArchPagedData
 import owlsdevelopers.org.passcoder.domain.core.PagedData
 import owlsdevelopers.org.passcoder.domain.core.UseCase
 import owlsdevelopers.org.passcoder.domain.models.Passcode
-import owlsdevelopers.org.passcoder.domain.models.repository.PasscodeRepository
+import owlsdevelopers.org.passcoder.domain.repository.PasscodeRepository
 
 
 class GetPasscodes(private val passcodeRepository: PasscodeRepository) : UseCase<PagedData<Passcode>, GetPasscodes.Params>() {

@@ -3,7 +3,7 @@ package owlsdevelopers.org.passcoder.data.repository
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import owlsdevelopers.org.passcoder.domain.models.repository.ClipboardRepository
+import owlsdevelopers.org.passcoder.domain.repository.ClipboardRepository
 
 class AndroidClipboardRepository(private val context: Context): ClipboardRepository {
     override fun copyTextToClipboard(text: String) {

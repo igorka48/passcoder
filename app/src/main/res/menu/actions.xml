@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="owlsdevelopers.org.passcoder.ui.passcodes.activities.PasscodesActivity">
+    <item
+        android:id="@+id/action_redeem"
+        android:title="@string/action_redeem" />
+    <item
+        android:id="@+id/action_fully_redeem"
+        android:title="@string/action_fullyredeem" />
+</menu>

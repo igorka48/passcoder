@@ -5,7 +5,7 @@ import androidx.paging.DataSource
 import owlsdevelopers.org.passcoder.domain.core.SearchableDataSourceFactory
 import owlsdevelopers.org.passcoder.domain.models.NetworkState
 import owlsdevelopers.org.passcoder.domain.models.Passcode
-import owlsdevelopers.org.passcoder.domain.models.repository.PasscodeRepository
+import owlsdevelopers.org.passcoder.domain.repository.PasscodeRepository
 
 class PasscodeDataSourceFactory(
         private val passcodeRepository: PasscodeRepository,

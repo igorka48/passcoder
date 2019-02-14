@@ -7,7 +7,7 @@ import androidx.paging.PagedList
 import owlsdevelopers.org.passcoder.domain.core.PagedData
 import owlsdevelopers.org.passcoder.domain.models.NetworkState
 import owlsdevelopers.org.passcoder.domain.models.Passcode
-import owlsdevelopers.org.passcoder.domain.models.repository.ClipboardRepository
+import owlsdevelopers.org.passcoder.domain.repository.ClipboardRepository
 import owlsdevelopers.org.passcoder.domain.usecases.GetPasscodes
 import owlsdevelopers.org.passcoder.ui.util.SingleLiveEvent
 

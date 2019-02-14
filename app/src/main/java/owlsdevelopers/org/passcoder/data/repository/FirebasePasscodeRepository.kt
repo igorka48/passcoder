@@ -5,13 +5,21 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import owlsdevelopers.org.passcoder.domain.models.Passcode
-import owlsdevelopers.org.passcoder.domain.models.repository.PasscodeRepository
+import owlsdevelopers.org.passcoder.domain.repository.PasscodeRepository
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 
 class FirebasePasscodeRepository(private val databaseReference: DatabaseReference) : PasscodeRepository {
+    override suspend fun redeemPasscode(passcode: Passcode): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun fullyRedeemPasscode(passcode: Passcode): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override suspend fun addPasscode(passcode: Passcode): Boolean = suspendCoroutine { continuation ->
         databaseReference.push().setValue(passcode).addOnCompleteListener {
             t -> if(t.isSuccessful) continuation.resume(true) else continuation.resumeWithException(t.exception!!)

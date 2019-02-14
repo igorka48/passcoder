@@ -7,13 +7,17 @@ import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import owlsdevelopers.org.passcoder.data.repository.AndroidClipboardRepository
 import owlsdevelopers.org.passcoder.data.repository.FirebasePasscodeRepository
-import owlsdevelopers.org.passcoder.domain.models.repository.ClipboardRepository
-import owlsdevelopers.org.passcoder.domain.models.repository.PasscodeRepository
+import owlsdevelopers.org.passcoder.domain.repository.ClipboardRepository
+import owlsdevelopers.org.passcoder.domain.repository.PasscodeRepository
 import owlsdevelopers.org.passcoder.domain.usecases.AddPasscode
 import owlsdevelopers.org.passcoder.domain.usecases.GetPasscodes
+import owlsdevelopers.org.passcoder.domain.usecases.Login
+import owlsdevelopers.org.passcoder.domain.usecases.Logout
 import owlsdevelopers.org.passcoder.ui.actions.viewmodels.ActionsViewModel
 import owlsdevelopers.org.passcoder.ui.addpasscode.viewmodels.AddPasscodeViewModel
+import owlsdevelopers.org.passcoder.ui.login.viewmodels.LoginViewModel
 import owlsdevelopers.org.passcoder.ui.passcodes.viewmodels.PasscodesListViewModel
+import owlsdevelopers.org.passcoder.ui.passcodes.viewmodels.PasscodesViewModel
 
 class PasscoderApplication : Application() {
 
@@ -35,12 +39,16 @@ class PasscoderApplication : Application() {
         val viewModule = module("view") {
             viewModel { PasscodesListViewModel(get(), get()) }
             viewModel { AddPasscodeViewModel(get()) }
+            viewModel { PasscodesViewModel(get()) }
+            viewModel { LoginViewModel(get()) }
             viewModel { ActionsViewModel(get()) }
         }
 
         val useCaseModule = module {
             single { AddPasscode(get()) }
             single { GetPasscodes(get()) }
+            single { Login() }
+            single { Logout() }
         }
 
         startKoin(this, listOf(dataModule, viewModule, useCaseModule))

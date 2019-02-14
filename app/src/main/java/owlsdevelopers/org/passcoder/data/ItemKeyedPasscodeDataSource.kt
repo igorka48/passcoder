@@ -4,7 +4,7 @@ import androidx.paging.ItemKeyedDataSource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import owlsdevelopers.org.passcoder.domain.models.Passcode
-import owlsdevelopers.org.passcoder.domain.models.repository.PasscodeRepository
+import owlsdevelopers.org.passcoder.domain.repository.PasscodeRepository
 
 class ItemKeyedPasscodeDataSource(
         private val repository: PasscodeRepository,
