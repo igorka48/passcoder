@@ -18,6 +18,8 @@ class PasscodesListViewModel constructor(getPasscodes: GetPasscodes, private val
     private val mLoadIndicator = SingleLiveEvent<Boolean>()
     private val mShowActions = SingleLiveEvent<Boolean>()
 
+
+
     val toastInfo: LiveData<String>
         get() = mToastInfo
 
