@@ -5,12 +5,9 @@ import androidx.lifecycle.ViewModel
 import owlsdevelopers.org.passcoder.ui.util.SingleLiveEvent
 
 abstract class BasicViewModel : ViewModel() {
-    private val mToastInfo = SingleLiveEvent<String>()
-    private val mLoadIndicator = SingleLiveEvent<Boolean>()
+    protected val mViewEvent = SingleLiveEvent<ViewEvent>()
 
-    val toastInfo: LiveData<String>
-        get() = mToastInfo
+    val viewEvent: LiveData<ViewEvent>
+        get() = mViewEvent
 
-    val loadIndicator: LiveData<Boolean>
-        get() = mLoadIndicator
 }

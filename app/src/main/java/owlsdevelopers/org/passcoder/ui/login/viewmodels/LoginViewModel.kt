@@ -11,14 +11,11 @@ import owlsdevelopers.org.passcoder.domain.models.User
 import owlsdevelopers.org.passcoder.domain.usecases.GetCurrentUser
 import owlsdevelopers.org.passcoder.domain.usecases.Login
 import owlsdevelopers.org.passcoder.ui.core.BasicViewModel
+import owlsdevelopers.org.passcoder.ui.core.ViewEvent
 import owlsdevelopers.org.passcoder.ui.util.SingleLiveEvent
 
 class LoginViewModel constructor(val login: Login, val getCurrentUser: GetCurrentUser, val googleSignInRepository: GoogleSignInRepository) : BasicViewModel() {
 
-    var loginButtonEvent = SingleLiveEvent<Boolean>()
-    private val mToastInfo = SingleLiveEvent<String>()
-    private val mLoadIndicator = SingleLiveEvent<Boolean>()
-    private val mErrorMessage = SingleLiveEvent<String>()
     private val mLoginIntent = SingleLiveEvent<Intent>()
     private val mUserData = SingleLiveEvent<User>()
 
@@ -35,15 +32,16 @@ class LoginViewModel constructor(val login: Login, val getCurrentUser: GetCurren
         get() = mUserData
 
     init {
-        loginButtonEvent.observeForever {
-            showGoogleLoginScreen()
-        }
         googleSignInResultIntent.observeForever {
             uiScope.launch {
                 doLogin(googleSignInRepository.handleSignInResultIntent(it))
             }
         }
         getUser()
+    }
+
+    fun loginCommand(){
+        showGoogleLoginScreen()
     }
 
     override fun onCleared() {
@@ -59,11 +57,11 @@ class LoginViewModel constructor(val login: Login, val getCurrentUser: GetCurren
 
     private fun doLogin(credential: Credential) {
         val handler = UseCaseExceptionHandler { _, exception ->
-            mErrorMessage.value = exception.localizedMessage
+            mViewEvent.value = ViewEvent.Error(exception.localizedMessage)
         }
-        mLoadIndicator.value = true
+        mViewEvent.value = ViewEvent.ShowLoading
         login(Login.Params(credential), handler) { user ->
-            mLoadIndicator.value = false
+            mViewEvent.value = ViewEvent.HideLoading
             mUserData.value = user
         }
     }
@@ -72,9 +70,9 @@ class LoginViewModel constructor(val login: Login, val getCurrentUser: GetCurren
         val handler = UseCaseExceptionHandler { _, exception ->
 
         }
-        mLoadIndicator.value = true
+        mViewEvent.value = ViewEvent.ShowLoading
         getCurrentUser(UseCase.None(), handler) { user ->
-            mLoadIndicator.value = false
+            mViewEvent.value = ViewEvent.HideLoading
             mUserData.value = user
         }
     }

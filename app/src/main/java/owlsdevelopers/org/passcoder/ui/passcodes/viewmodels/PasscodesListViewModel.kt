@@ -2,29 +2,20 @@ package owlsdevelopers.org.passcoder.ui.passcodes.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import owlsdevelopers.org.passcoder.domain.core.PagedData
 import owlsdevelopers.org.passcoder.domain.models.NetworkState
 import owlsdevelopers.org.passcoder.domain.models.Passcode
 import owlsdevelopers.org.passcoder.domain.repository.ClipboardRepository
 import owlsdevelopers.org.passcoder.domain.usecases.GetPasscodes
+import owlsdevelopers.org.passcoder.ui.core.BasicViewModel
+import owlsdevelopers.org.passcoder.ui.core.ViewEvent
 import owlsdevelopers.org.passcoder.ui.util.SingleLiveEvent
 
 
-class PasscodesListViewModel constructor(getPasscodes: GetPasscodes, private val clipboardRepository: ClipboardRepository) : ViewModel() {
+class PasscodesListViewModel constructor(getPasscodes: GetPasscodes, private val clipboardRepository: ClipboardRepository) : BasicViewModel() {
 
-    private val mToastInfo = SingleLiveEvent<String>()
-    private val mLoadIndicator = SingleLiveEvent<Boolean>()
     private val mShowActions = SingleLiveEvent<Boolean>()
-
-
-
-    val toastInfo: LiveData<String>
-        get() = mToastInfo
-
-    val loadIndicator: LiveData<Boolean>
-        get() = mLoadIndicator
 
     val showActions: LiveData<Boolean>
         get() = mShowActions
@@ -59,7 +50,7 @@ class PasscodesListViewModel constructor(getPasscodes: GetPasscodes, private val
         initialState.addSource(data.getInitialLoadState()) { initialState.value = it }
     }
 
-    fun reloadData() {
+    fun reloadCommand() {
         pagedData?.invalidate()
     }
 
@@ -67,7 +58,7 @@ class PasscodesListViewModel constructor(getPasscodes: GetPasscodes, private val
 
     fun onItemClicked(item: Passcode) {
         clipboardRepository.copyTextToClipboard(item.value)
-        mToastInfo.value = "Code copied to clipboard"
+        mViewEvent.value = ViewEvent.Info("Code copied to clipboard")
     }
 
 

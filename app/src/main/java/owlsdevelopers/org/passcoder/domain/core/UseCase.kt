@@ -15,10 +15,7 @@
  */
 package owlsdevelopers.org.passcoder.domain.core
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 /**

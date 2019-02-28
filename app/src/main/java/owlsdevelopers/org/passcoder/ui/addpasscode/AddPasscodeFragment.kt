@@ -15,6 +15,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import owlsdevelopers.org.passcoder.R
 import owlsdevelopers.org.passcoder.domain.models.AddCodeFormData
 import owlsdevelopers.org.passcoder.ui.addpasscode.viewmodels.AddPasscodeViewModel
+import owlsdevelopers.org.passcoder.ui.core.ViewEvent
+import java.lang.Error
 
 
 class AddPasscodeFragment : DialogFragment() {
@@ -34,19 +36,17 @@ class AddPasscodeFragment : DialogFragment() {
                     code = passcodeField.text.toString(),
                     description = descriptionField.text.toString()))
         }
-        viewModel.errorMessage.observe(this, Observer { value ->
-            value?.let {
-                showError(it)
+        viewModel.viewEvent.observe(this, Observer {
+            when(it){
+               is ViewEvent.Error -> showError(it.message)
+                is ViewEvent.Info -> showError(it.message)
+                is ViewEvent.ShowLoading -> progressView.visibility = VISIBLE
+                is ViewEvent.HideLoading -> progressView.visibility = VISIBLE
             }
         })
         viewModel.hideDialog.observe(this, Observer { value ->
             value?.let {
                 if (it) hideDialog()
-            }
-        })
-        viewModel.loadIndicator.observe(this, Observer { value ->
-            value?.let {
-                progressView.visibility = if (it) VISIBLE else GONE
             }
         })
     }

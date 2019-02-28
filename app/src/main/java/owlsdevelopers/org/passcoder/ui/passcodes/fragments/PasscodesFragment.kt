@@ -13,8 +13,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import owlsdevelopers.org.passcoder.R
 import owlsdevelopers.org.passcoder.domain.models.Passcode
 import owlsdevelopers.org.passcoder.ui.actions.ActionsFragment
+import owlsdevelopers.org.passcoder.ui.core.ViewEvent
 import owlsdevelopers.org.passcoder.ui.passcodes.adapters.PasscodeAdapter
 import owlsdevelopers.org.passcoder.ui.passcodes.viewmodels.PasscodesListViewModel
+import owlsdevelopers.org.passcoder.ui.util.bind
 
 
 /**
@@ -35,16 +37,18 @@ class PasscodesFragment : Fragment(), PasscodeAdapter.Callback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.loadIndicator.observe(this, Observer { value -> value?.let { swipeRefresh.isRefreshing = it } })
         viewModel.showActions.observe(this, Observer { value -> value?.let { showActionsDialog() } })
 
-        viewModel.toastInfo.observe(this, Observer { value ->
-            value?.let {
-                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+        viewModel.viewEvent.observe(this, Observer {
+            when(it){
+                is ViewEvent.Error -> showError(it.message)
+                is ViewEvent.Info -> showInfo(it.message)
+                is ViewEvent.ShowLoading -> swipeRefresh.isRefreshing = true
+                is ViewEvent.HideLoading -> swipeRefresh.isRefreshing = false
             }
         })
         initRecyclerView()
-        swipeRefresh.setOnRefreshListener { viewModel.reloadData() }
+        swipeRefresh.bind { viewModel.reloadCommand() }
     }
 
     private fun initRecyclerView() {
@@ -70,5 +74,11 @@ class PasscodesFragment : Fragment(), PasscodeAdapter.Callback {
        viewModel.onItemLongClicked(item)
     }
 
+    private fun showError(message: String){
+        Toast.makeText(context!!, message, Toast.LENGTH_LONG).show()
+    }
 
+    private fun showInfo(message: String){
+        Toast.makeText(context!!, message, Toast.LENGTH_LONG).show()
+    }
 }

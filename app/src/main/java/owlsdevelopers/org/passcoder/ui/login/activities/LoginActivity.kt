@@ -3,20 +3,15 @@ package owlsdevelopers.org.passcoder.ui.login.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import owlsdevelopers.org.passcoder.R
+import owlsdevelopers.org.passcoder.ui.core.ViewEvent
 import owlsdevelopers.org.passcoder.ui.login.viewmodels.LoginViewModel
 import owlsdevelopers.org.passcoder.ui.passcodes.activities.PasscodesActivity
 import owlsdevelopers.org.passcoder.ui.util.bind
@@ -42,11 +37,13 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        viewModel.loadIndicator.observe(this, Observer { value -> value?.let { swipeRefresh.isRefreshing = it } })
 
-        viewModel.toastInfo.observe(this, Observer { value ->
-            value?.let {
-                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+        viewModel.viewEvent.observe(this, Observer {
+            when(it){
+                is ViewEvent.Error -> showError(it.message)
+                is ViewEvent.Info -> showInfo(it.message)
+                //is ViewEvent.ShowLoading -> progressView.visibility = View.VISIBLE
+                //is ViewEvent.HideLoading -> progressView.visibility = View.VISIBLE
             }
         })
 
@@ -62,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        loginButton.bind(viewModel.loginButtonEvent)
+        loginButton.bind{viewModel.loginCommand()}
     }
 
 
@@ -107,6 +104,14 @@ class LoginActivity : AppCompatActivity() {
 //                    // ...
 //                }
 //    }
+
+    private fun showError(message: String){
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun showInfo(message: String){
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
 
     private fun gotoMainScreen() {
         startActivity(PasscodesActivity.getIntent(this))
