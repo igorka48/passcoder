@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "147128160652",
+    "firebase_url": "https://passcoder-28f5f.firebaseio.com",
+    "project_id": "passcoder-28f5f",
+    "storage_bucket": "passcoder-28f5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147128160652:android:32457389d82f69d7",
+        "android_client_info": {
+          "package_name": "owlsdevelopers.org.passcoder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147128160652-3gtv7sjun71obu0a6mk4261niakqk250.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "owlsdevelopers.org.passcoder",
+            "certificate_hash": "ad0d61f6c35d54f19166e88d3fe61b154dac7359"
+          }
+        },
+        {
+          "client_id": "147128160652-60gpdgeknjcl96o6u9e617rcsher5b4i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGrUH8NX_nL7HW30SnAcq8yx9hybPLB3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147128160652-60gpdgeknjcl96o6u9e617rcsher5b4i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

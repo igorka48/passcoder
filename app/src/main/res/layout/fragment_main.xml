@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="owlsdevelopers.org.passcoder.ui.passcodes.fragments.PasscodesFragment"
-    tools:showIn="@layout/activity_main">
+    tools:context="owlsdevelopers.org.passcoder.presentation.passcodes.fragments.PasscodesFragment"
+    tools:showIn="@layout/fragment_home">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"

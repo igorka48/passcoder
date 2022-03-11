@@ -9,6 +9,6 @@ class AndroidClipboardRepository(private val context: Context): ClipboardReposit
     override fun copyTextToClipboard(text: String) {
         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText(text, text)
-        clipboard.primaryClip = clip
+        clipboard.setPrimaryClip(clip)
     }
 }

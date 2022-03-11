@@ -1,18 +1,3 @@
-/**
- * Copyright (C) 2018 Fernando Cejas Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package owlsdevelopers.org.passcoder.domain.core
 
 import kotlinx.coroutines.*
@@ -30,19 +15,32 @@ abstract class UseCase<out Type, in Params> where Type : Any {
 
     abstract suspend fun run(params: Params): Type
 
+    protected var exceptionHandler: UseCaseExceptionHandler? = null
+    private val uiScope =  CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    private val defaultScope = CoroutineScope( SupervisorJob() + Dispatchers.Default)
 
-    private val uiScope = MainScope()
+    operator fun invoke(params: Params, scope: CoroutineScope, onResult: (Type) -> Unit = {}) {
+        val job = scope.async { run(params) }
+        uiScope.launch{ onResult(job.await()) }
+    }
+
+    operator fun invoke(params: Params, scope: CoroutineScope, errorHandler: UseCaseExceptionHandler, onResult: (Type) -> Unit = {}) {
+        exceptionHandler = errorHandler
+        val job = scope.async { run(params) }
+        uiScope.launch(errorHandler){ onResult(job.await()) }
+    }
 
     operator fun invoke(params: Params, errorHandler: UseCaseExceptionHandler, onResult: (Type) -> Unit = {}) {
-        val job = GlobalScope.async { run(params) }
+        exceptionHandler = errorHandler
+        val job = defaultScope.async { run(params) }
         uiScope.launch(errorHandler) { onResult(job.await()) }
     }
 
     operator fun invoke(params: Params, onResult: (Type) -> Unit = {}) {
-        val job = GlobalScope.async { run(params) }
+        val job = defaultScope.async { run(params) }
         uiScope.launch{ onResult(job.await()) }
     }
 
 
-    class None
+    object None
 }

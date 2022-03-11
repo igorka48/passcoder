@@ -4,7 +4,7 @@ import org.junit.*
 import org.koin.standalone.StandAloneContext.closeKoin
 import org.koin.standalone.StandAloneContext.startKoin
 import owlsdevelopers.org.passcoder.domain.repository.PasscodeRepository
-import owlsdevelopers.org.passcoder.ui.addpasscode.viewmodels.AddPasscodeViewModel
+import owlsdevelopers.org.passcoder.presentation.addpasscode.viewmodels.AddPasscodeViewModel
 
 class DetailViewModelTest : KoinTest {
 

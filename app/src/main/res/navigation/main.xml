@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/actionsFragment"
+        android:name="owlsdevelopers.org.passcoder.presentation.actions.ActionsFragment"
+        android:label="actions_fragment"
+        tools:layout="@layout/actions_fragment" />
+    <fragment
+        android:id="@+id/addPasscodeFragment"
+        android:name="owlsdevelopers.org.passcoder.presentation.addpasscode.AddPasscodeFragment"
+        android:label="fragment_add_passcode"
+        tools:layout="@layout/fragment_add_passcode" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="owlsdevelopers.org.passcoder.presentation.login.fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="owlsdevelopers.org.passcoder.presentation.home.fragments.HomeFragment"
+        android:label="activity_main"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_addPasscodeFragment"
+            app:destination="@id/addPasscodeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_actionsFragment"
+            app:destination="@id/actionsFragment" />
+    </fragment>
+</navigation>
