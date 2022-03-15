@@ -24,8 +24,8 @@ class LoginFragment : BasicFragment<LoginNavigationEvents>(R.layout.fragment_log
         androidFirebaseAuthenticator.bindFragment(this)
         viewBinding.loginButton.setOnClickListener {viewModel.loginCommand()}
         viewBinding.shimmer.stopShimmer()
-        viewModel.loadingEvent.observe(this, {
-            when(it){
+        viewModel.loadingEvent.observe(this) {
+            when (it) {
                 is LoadingEvent.ShowLoading -> {
                     viewBinding.loginButton.isEnabled = false
                     viewBinding.shimmer.startShimmer()
@@ -35,7 +35,7 @@ class LoginFragment : BasicFragment<LoginNavigationEvents>(R.layout.fragment_log
                     viewBinding.shimmer.stopShimmer()
                 }
             }
-        })
+        }
     }
 
 

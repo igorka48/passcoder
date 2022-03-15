@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,14 +8,18 @@
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
-
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.33"
+        app:shimmer_duration="3000">
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="240dp"
-            android:layout_height="240dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:src="@drawable/img_ingress_logo" />
     </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -25,6 +30,9 @@
         android:layout_below="@id/shimmer"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="60dp"
-        android:text="@string/sign_in" />
-</RelativeLayout>
+        android:text="@string/sign_in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shimmer" />
+</androidx.constraintlayout.widget.ConstraintLayout>
