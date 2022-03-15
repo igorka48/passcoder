@@ -15,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "147128160652-2tvf7975300rgctjrb7vooe8uet926jh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "owlsdevelopers.org.passcoder",
+            "certificate_hash": "415ecd6fa7237ed071fca1f945c645c5ba1813ea"
+          }
+        },
+        {
           "client_id": "147128160652-3gtv7sjun71obu0a6mk4261niakqk250.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "owlsdevelopers.org.passcoder",
             "certificate_hash": "ad0d61f6c35d54f19166e88d3fe61b154dac7359"
+          }
+        },
+        {
+          "client_id": "147128160652-pgfh88o58uv2eiuovhkcfh29fea270vf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "owlsdevelopers.org.passcoder",
+            "certificate_hash": "2b468801ea6981e5186c436983283114afe1dbb1"
           }
         },
         {
