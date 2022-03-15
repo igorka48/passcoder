@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Passcoder.iml" filepath="$PROJECT_DIR$/Passcoder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Passcoder.iml" filepath="$PROJECT_DIR$/.idea/modules/Passcoder.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Passcoder.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Passcoder.app.iml" />
     </modules>
   </component>
