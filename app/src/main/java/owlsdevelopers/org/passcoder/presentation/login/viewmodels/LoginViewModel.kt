@@ -30,7 +30,7 @@ class LoginViewModel constructor(val isLogged: IsLogged, val login: Login) : Bas
 
     private fun doLogin() {
         mLoadingEvent.postValue(LoadingEvent.ShowLoading)
-        login(Login.Params(Credential(""))) { user ->
+        login(Login.Params(Credential("")), useCaseExceptionHandler) { user ->
             mLoadingEvent.postValue(LoadingEvent.HideLoading)
             checkIsLogged()
         }
