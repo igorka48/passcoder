@@ -1,9 +1,8 @@
-package owlsdevelopers.org.passcoder.presentation.passcodes.navigation
+package owlsdevelopers.org.passcoder.presentation.home.navigation
 
 import owlsdevelopers.org.passcoder.presentation.core.NavigationEvents
 
 sealed class HomeNavigationEvents : NavigationEvents {
-        object MainScreen : HomeNavigationEvents()
         object LoginScreen : HomeNavigationEvents()
         object AddCode : HomeNavigationEvents()
 }

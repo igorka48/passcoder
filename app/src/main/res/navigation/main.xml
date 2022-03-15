@@ -12,7 +12,7 @@
         tools:layout="@layout/actions_fragment" />
     <fragment
         android:id="@+id/addPasscodeFragment"
-        android:name="owlsdevelopers.org.passcoder.presentation.addpasscode.AddPasscodeFragment"
+        android:name="owlsdevelopers.org.passcoder.presentation.addpasscode.fragments.AddPasscodeFragment"
         android:label="fragment_add_passcode"
         tools:layout="@layout/fragment_add_passcode" />
     <fragment
