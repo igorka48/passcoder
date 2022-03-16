@@ -1,80 +1,70 @@
 package owlsdevelopers.org.passcoder.presentation.passcodes.fragments
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.paging.PagedList
-import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import owlsdevelopers.org.passcoder.R
+import owlsdevelopers.org.passcoder.databinding.FragmentPasscodesBinding
 import owlsdevelopers.org.passcoder.domain.models.Passcode
-import owlsdevelopers.org.passcoder.presentation.actions.ActionsFragment
+import owlsdevelopers.org.passcoder.presentation.core.BasicFragment
+import owlsdevelopers.org.passcoder.presentation.core.LoadingEvent
+import owlsdevelopers.org.passcoder.presentation.core.ViewEvent
 import owlsdevelopers.org.passcoder.presentation.passcodes.adapters.PasscodeAdapter
+import owlsdevelopers.org.passcoder.presentation.passcodes.navigation.PasscodesNavigationEvents
+import owlsdevelopers.org.passcoder.presentation.passcodes.navigation.navigationFun
 import owlsdevelopers.org.passcoder.presentation.passcodes.viewmodels.PasscodesListViewModel
 import owlsdevelopers.org.passcoder.presentation.util.bind
 
 
-class PasscodesFragment : Fragment(), PasscodeAdapter.Callback {
+class PasscodesFragment : BasicFragment<PasscodesNavigationEvents>(R.layout.fragment_passcodes, childNavigation = true),
+    PasscodeAdapter.Callback {
+    private val viewModel by viewModel<PasscodesListViewModel>()
+    override fun provideViewModel() = viewModel
+    override fun provideNavigationFunction() = navigationFun()
+    lateinit var viewBinding: FragmentPasscodesBinding
+    override fun initViews() {
+        viewBinding = FragmentPasscodesBinding.bind(requireView())
+        viewModel.showActions.observe(viewLifecycleOwner) { value -> value?.let { viewModel::showActionsCommand } }
 
-
-    val viewModel by viewModel<PasscodesListViewModel>()
-
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.fragment_main, container, false)
-        return v
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        viewModel.showActions.observe(viewLifecycleOwner, Observer { value -> value?.let { showActionsDialog() } })
-
-        viewModel.viewEvent.observe(viewLifecycleOwner, {
-//            when(it){
-//                is ViewEvent.Error -> showError(it.message)
-//                is ViewEvent.Info -> showInfo(it.message)
-//                is ViewEvent.ShowLoading -> swipeRefresh.isRefreshing = true
-//                is ViewEvent.HideLoading -> swipeRefresh.isRefreshing = false
-//            }
-        })
+        viewModel.viewEvent.observe(viewLifecycleOwner) {
+            when(it){
+                is ViewEvent.Error -> showError(it.exception.localizedMessage ?: "")
+                is ViewEvent.Info -> showInfo(it.message)
+            }
+        }
+        viewModel.loadingEvent.observe(viewLifecycleOwner) {
+            when(it){
+                is LoadingEvent.ShowLoading -> viewBinding.swipeRefresh.isRefreshing = true
+                is LoadingEvent.HideLoading -> viewBinding.swipeRefresh.isRefreshing = false
+            }
+        }
         initRecyclerView()
-        swipeRefresh.bind { viewModel.reloadCommand() }
+        viewBinding.swipeRefresh.bind { viewModel.reloadCommand() }
     }
 
     private fun initRecyclerView() {
         val adapter = PasscodeAdapter(this)
-        recyclerView.adapter = adapter
-        viewModel.livePagedList.observe(viewLifecycleOwner, Observer<PagedList<Passcode>> {
-            if (swipeRefresh.isRefreshing)
-                swipeRefresh.isRefreshing = false
+        viewBinding.recyclerView.adapter = adapter
+        viewModel.livePagedList.observe(viewLifecycleOwner) {
+            if (viewBinding.swipeRefresh.isRefreshing)
+                viewBinding.swipeRefresh.isRefreshing = false
             adapter.submitList(it)
-        })
+        }
     }
-    private fun showActionsDialog() {
-        val newFragment = ActionsFragment.newInstance(Passcode())
-        newFragment.isCancelable = true
-        newFragment.show(requireFragmentManager(), "dialog2")
-    }
+
 
     override fun onItemClicked(item: Passcode) {
         viewModel.onItemClicked(item)
     }
 
     override fun onItemLongClicked(item: Passcode) {
-       viewModel.onItemLongClicked(item)
+        viewModel.onItemLongClicked(item)
     }
 
-    private fun showError(message: String){
+    private fun showError(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 
-    private fun showInfo(message: String){
+    private fun showInfo(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 }

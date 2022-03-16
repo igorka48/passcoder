@@ -9,15 +9,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import owlsdevelopers.org.passcoder.R
 
 
-abstract class BasicFragment<T: NavigationEvents>(@LayoutRes contentLayoutId: Int): Fragment(contentLayoutId) {
+abstract class BasicFragment<T: NavigationEvents>(@LayoutRes contentLayoutId: Int, val childNavigation: Boolean = false): Fragment(contentLayoutId) {
 
     lateinit var navController: NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
+        navController = if(childNavigation){
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+        } else {
+            Navigation.findNavController(view)
+        }
         navController.addOnDestinationChangedListener { _, _, _ -> hideKeyboard() }
 //        toolbar?.let {
 //            NavigationUI.setupWithNavController(it, navController)

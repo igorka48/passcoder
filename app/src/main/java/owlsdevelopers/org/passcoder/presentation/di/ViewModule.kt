@@ -6,12 +6,10 @@ import owlsdevelopers.org.passcoder.presentation.addpasscode.viewmodels.AddPassc
 import owlsdevelopers.org.passcoder.presentation.login.viewmodels.LoginViewModel
 import owlsdevelopers.org.passcoder.presentation.home.viewmodels.HomeViewModel
 import owlsdevelopers.org.passcoder.presentation.passcodes.viewmodels.PasscodesListViewModel
-import owlsdevelopers.org.passcoder.presentation.passcodes.viewmodels.PasscodesViewModel
 
 val viewModule = module {
     viewModel { PasscodesListViewModel(get(), get()) }
     viewModel { AddPasscodeViewModel(get()) }
-    viewModel { PasscodesViewModel(get()) }
     viewModel { LoginViewModel(get(), get()) }
     viewModel { ActionsViewModel(get()) }
     viewModel { HomeViewModel(get()) }

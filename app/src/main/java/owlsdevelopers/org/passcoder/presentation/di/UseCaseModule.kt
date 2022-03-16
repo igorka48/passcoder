@@ -9,4 +9,5 @@ val useCaseModule = module {
     single { GetCurrentUser(get()) }
     single { Logout(get()) }
     single { IsLogged(get()) }
+    single { CopyTextToClipboard(get()) }
 }

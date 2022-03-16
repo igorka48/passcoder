@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.DiffUtil
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.cell_code.view.*
 import owlsdevelopers.org.passcoder.R
+import owlsdevelopers.org.passcoder.databinding.CellCodeBinding
 import owlsdevelopers.org.passcoder.domain.models.Passcode
 
 
@@ -24,12 +24,19 @@ class PasscodeAdapter(private val callback: Callback) : PagedListAdapter<Passcod
     }
 
 
-    inner class ViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view)
+    inner class ViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+        private val binding = CellCodeBinding.bind(view)
+        fun bind(data: Passcode) {
+            with(binding) {
+                codeValue.text = data.value
+                codeDescription.text = data.description
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
                 .inflate(ITEM_LAYOUT, parent, false)
-
         return ViewHolder(itemView)
     }
 
@@ -40,8 +47,7 @@ class PasscodeAdapter(private val callback: Callback) : PagedListAdapter<Passcod
             callback.onItemLongClicked(item)
             true
         }
-        holder.itemView.codeValue.text = item.value
-        holder.itemView.codeDescription.text = item.description
+        holder.bind(item)
     }
 
 

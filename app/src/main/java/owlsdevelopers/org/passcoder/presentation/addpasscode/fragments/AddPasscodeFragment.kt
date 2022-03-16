@@ -5,7 +5,6 @@ import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import owlsdevelopers.org.passcoder.R
 import owlsdevelopers.org.passcoder.databinding.FragmentAddPasscodeBinding
-import owlsdevelopers.org.passcoder.domain.models.AddCodeFormData
 import owlsdevelopers.org.passcoder.presentation.addpasscode.navigation.AddCodeNavigationEvents
 import owlsdevelopers.org.passcoder.presentation.addpasscode.navigation.navigationFun
 import owlsdevelopers.org.passcoder.presentation.addpasscode.viewmodels.AddPasscodeViewModel

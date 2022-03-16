@@ -23,8 +23,9 @@
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment"
+            app:launchSingleTop="true"
             app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -33,9 +34,16 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_addPasscodeFragment"
-            app:destination="@id/addPasscodeFragment" />
+            app:destination="@id/addPasscodeFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_homeFragment_to_actionsFragment"
             app:destination="@id/actionsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/passcodesFragment"
+        android:name="owlsdevelopers.org.passcoder.presentation.passcodes.fragments.PasscodesFragment"
+        android:label="fragment_passcodes"
+        tools:layout="@layout/fragment_passcodes" />
 </navigation>
