@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import owlsdevelopers.org.passcoder.domain.models.AddCodeFormData
 import owlsdevelopers.org.passcoder.domain.models.Passcode
 import owlsdevelopers.org.passcoder.domain.usecases.AddPasscode
+import owlsdevelopers.org.passcoder.presentation.Constants.EMPTY_STRING
 import owlsdevelopers.org.passcoder.presentation.addpasscode.navigation.AddCodeNavigationEvents
 import owlsdevelopers.org.passcoder.presentation.core.BasicViewModel
 import owlsdevelopers.org.passcoder.presentation.core.LoadingEvent
@@ -18,8 +19,8 @@ class AddPasscodeViewModel constructor(val addPasscode: AddPasscode) : BasicView
 
     fun postCommand() {
         val formData = AddCodeFormData(
-            code = code.value ?: "",
-            description = description.value ?: ""
+            code = code.value ?: EMPTY_STRING,
+            description = description.value ?: EMPTY_STRING
         )
         postCode(formData)
     }
@@ -31,7 +32,7 @@ class AddPasscodeViewModel constructor(val addPasscode: AddPasscode) : BasicView
             additionTime = System.currentTimeMillis()
         )
         mLoadingEvent.postValue(LoadingEvent.ShowLoading)
-        addPasscode(AddPasscode.Params(passcode), useCaseExceptionHandler) { success ->
+        addPasscode(AddPasscode.Params(passcode), useCaseExceptionHandler) {
             mLoadingEvent.postValue(LoadingEvent.HideLoading)
             mNavigationEvents.postValue(AddCodeNavigationEvents.Back)
         }
