@@ -11,18 +11,11 @@ import owlsdevelopers.org.passcoder.domain.usecases.GetPasscodes
 import owlsdevelopers.org.passcoder.presentation.core.BasicViewModel
 import owlsdevelopers.org.passcoder.presentation.core.ViewEvent
 import owlsdevelopers.org.passcoder.presentation.passcodes.navigation.PasscodesNavigationEvents
-import owlsdevelopers.org.passcoder.presentation.util.SingleLiveEvent
-
 
 class PasscodesListViewModel constructor(
     getPasscodes: GetPasscodes,
     private val copyTextToClipboard: CopyTextToClipboard
 ) : BasicViewModel() {
-
-    private val mShowActions = SingleLiveEvent<Boolean>()
-
-    val showActions: LiveData<Boolean>
-        get() = mShowActions
 
     companion object {
         private const val PAGED_LIST_PAGE_SIZE = 20
@@ -64,17 +57,14 @@ class PasscodesListViewModel constructor(
         pagedData?.invalidate()
     }
 
-    fun showActionsCommand() {
-        mNavigationEvents.postValue(PasscodesNavigationEvents.ShowActions)
+    fun showActionsCommand(item: Passcode) {
+        mNavigationEvents.postValue(PasscodesNavigationEvents.ShowActions(item))
     }
 
-    fun onItemClicked(item: Passcode) {
+    fun itemClickedCommand(item: Passcode) {
         copyTextToClipboard(CopyTextToClipboard.Params(item.value), useCaseExceptionHandler) {
             mViewEvent.postValue(ViewEvent.Info("Code copied to clipboard"))
         }
     }
 
-    fun onItemLongClicked(item: Passcode) {
-        mShowActions.value = true
-    }
 }

@@ -14,7 +14,6 @@ import owlsdevelopers.org.passcoder.presentation.passcodes.navigation.navigation
 import owlsdevelopers.org.passcoder.presentation.passcodes.viewmodels.PasscodesListViewModel
 import owlsdevelopers.org.passcoder.presentation.util.bind
 
-
 class PasscodesFragment : BasicFragment<PasscodesNavigationEvents>(R.layout.fragment_passcodes, childNavigation = true),
     PasscodeAdapter.Callback {
     private val viewModel by viewModel<PasscodesListViewModel>()
@@ -23,22 +22,22 @@ class PasscodesFragment : BasicFragment<PasscodesNavigationEvents>(R.layout.frag
     lateinit var viewBinding: FragmentPasscodesBinding
     override fun initViews() {
         viewBinding = FragmentPasscodesBinding.bind(requireView())
-        viewModel.showActions.observe(viewLifecycleOwner) { value -> value?.let { viewModel::showActionsCommand } }
-
+        with(viewBinding){
+            swipeRefresh.bind { viewModel.reloadCommand() }
+            viewModel.loadingEvent.observe(viewLifecycleOwner) {
+                when(it){
+                    is LoadingEvent.ShowLoading -> swipeRefresh.isRefreshing = true
+                    is LoadingEvent.HideLoading -> swipeRefresh.isRefreshing = false
+                }
+            }
+        }
         viewModel.viewEvent.observe(viewLifecycleOwner) {
             when(it){
                 is ViewEvent.Error -> showError(it.exception.localizedMessage ?: "")
                 is ViewEvent.Info -> showInfo(it.message)
             }
         }
-        viewModel.loadingEvent.observe(viewLifecycleOwner) {
-            when(it){
-                is LoadingEvent.ShowLoading -> viewBinding.swipeRefresh.isRefreshing = true
-                is LoadingEvent.HideLoading -> viewBinding.swipeRefresh.isRefreshing = false
-            }
-        }
         initRecyclerView()
-        viewBinding.swipeRefresh.bind { viewModel.reloadCommand() }
     }
 
     private fun initRecyclerView() {
@@ -52,11 +51,11 @@ class PasscodesFragment : BasicFragment<PasscodesNavigationEvents>(R.layout.frag
     }
 
     override fun onItemClicked(item: Passcode) {
-        viewModel.onItemClicked(item)
+        viewModel.itemClickedCommand(item)
     }
 
     override fun onItemLongClicked(item: Passcode) {
-        viewModel.onItemLongClicked(item)
+        viewModel.showActionsCommand(item)
     }
 
     private fun showError(message: String) {
