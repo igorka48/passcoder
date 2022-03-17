@@ -51,7 +51,6 @@ class PasscodesFragment : BasicFragment<PasscodesNavigationEvents>(R.layout.frag
         }
     }
 
-
     override fun onItemClicked(item: Passcode) {
         viewModel.onItemClicked(item)
     }
