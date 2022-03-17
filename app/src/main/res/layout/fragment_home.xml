@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="owlsdevelopers.org.passcoder.presentation.home.fragments.HomeFragment">
+    tools:context="owlsdevelopers.org.passcoder.ui.home.fragments.HomeFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"

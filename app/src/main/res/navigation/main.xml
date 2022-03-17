@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/actionsFragment"
-        android:name="owlsdevelopers.org.passcoder.presentation.actions.fragments.ActionsFragment"
+        android:name="owlsdevelopers.org.passcoder.ui.actions.fragments.ActionsFragment"
         android:label="actions_fragment"
         tools:layout="@layout/actions_fragment" />
     <fragment
         android:id="@+id/addPasscodeFragment"
-        android:name="owlsdevelopers.org.passcoder.presentation.addpasscode.fragments.AddPasscodeFragment"
+        android:name="owlsdevelopers.org.passcoder.ui.addpasscode.fragments.AddPasscodeFragment"
         android:label="fragment_add_passcode"
         tools:layout="@layout/fragment_add_passcode" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="owlsdevelopers.org.passcoder.presentation.login.fragments.LoginFragment"
+        android:name="owlsdevelopers.org.passcoder.ui.login.fragments.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="owlsdevelopers.org.passcoder.presentation.home.fragments.HomeFragment"
+        android:name="owlsdevelopers.org.passcoder.ui.home.fragments.HomeFragment"
         android:label="activity_main"
         tools:layout="@layout/fragment_home" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/passcodesFragment"
-        android:name="owlsdevelopers.org.passcoder.presentation.passcodes.fragments.PasscodesFragment"
+        android:name="owlsdevelopers.org.passcoder.ui.passcodes.fragments.PasscodesFragment"
         android:label="fragment_passcodes"
         tools:layout="@layout/fragment_passcodes" />
 </navigation>
