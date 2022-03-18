@@ -9,6 +9,7 @@ import owlsdevelopers.org.passcoder.ui.addpasscode.navigation.AddCodeNavigationE
 import owlsdevelopers.org.passcoder.ui.addpasscode.navigation.navigationFun
 import owlsdevelopers.org.passcoder.ui.addpasscode.viewmodels.AddPasscodeViewModel
 import owlsdevelopers.org.passcoder.ui.core.*
+import owlsdevelopers.org.passcoder.ui.util.bind
 
 
 class AddPasscodeFragment : BasicFragment<AddCodeNavigationEvents>(R.layout.fragment_add_passcode) {

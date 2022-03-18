@@ -12,6 +12,7 @@ import owlsdevelopers.org.passcoder.ui.passcodes.adapters.PasscodeAdapter
 import owlsdevelopers.org.passcoder.ui.passcodes.navigation.PasscodesNavigationEvents
 import owlsdevelopers.org.passcoder.ui.passcodes.navigation.navigationFun
 import owlsdevelopers.org.passcoder.ui.passcodes.viewmodels.PasscodesListViewModel
+import owlsdevelopers.org.passcoder.ui.util.bind
 
 class PasscodesFragment : BasicFragment<PasscodesNavigationEvents>(R.layout.fragment_passcodes, childNavigation = true),
     PasscodeAdapter.Callback {

@@ -13,11 +13,11 @@ import kotlin.coroutines.suspendCoroutine
 
 class FirebasePasscodeRepository(private val databaseReference: DatabaseReference) : PasscodeRepository {
     override suspend fun redeemPasscode(passcode: Passcode): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return true
     }
 
     override suspend fun fullyRedeemPasscode(passcode: Passcode): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return true
     }
 
     override suspend fun addPasscode(passcode: Passcode): Boolean = suspendCoroutine { continuation ->

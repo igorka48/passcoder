@@ -9,7 +9,11 @@
         android:id="@+id/actionsFragment"
         android:name="owlsdevelopers.org.passcoder.ui.actions.fragments.ActionsFragment"
         android:label="actions_fragment"
-        tools:layout="@layout/actions_fragment" />
+        tools:layout="@layout/actions_fragment" >
+        <argument
+            android:name="passcode"
+            app:argType="owlsdevelopers.org.passcoder.domain.models.Passcode" />
+    </fragment>
     <fragment
         android:id="@+id/addPasscodeFragment"
         android:name="owlsdevelopers.org.passcoder.ui.addpasscode.fragments.AddPasscodeFragment"
@@ -45,5 +49,9 @@
         android:id="@+id/passcodesFragment"
         android:name="owlsdevelopers.org.passcoder.ui.passcodes.fragments.PasscodesFragment"
         android:label="fragment_passcodes"
-        tools:layout="@layout/fragment_passcodes" />
+        tools:layout="@layout/fragment_passcodes" >
+        <action
+            android:id="@+id/action_passcodesFragment_to_actionsFragment"
+            app:destination="@id/actionsFragment" />
+    </fragment>
 </navigation>

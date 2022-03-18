@@ -5,4 +5,6 @@
     <string name="action_redeem">Redeem</string>
     <string name="action_fullyredeem">Fully Redeem</string>
     <string name="sign_in">Sign In</string>
+    <string name="already_redeemed">Already redeemed</string>
+    <string name="fully_redeemed">Fully redeemed</string>
 </resources>

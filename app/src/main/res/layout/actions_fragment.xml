@@ -19,7 +19,7 @@
             android:id="@+id/titleLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="48484848448" />
+            tools:text="48484848448" />
 
         <Space
             android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
             android:id="@+id/alreadyRedeemedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already redeemed" />
+            android:text="@string/already_redeemed" />
 
         <Space
             android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
             android:id="@+id/fullyRedeemedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fully redeemed"
+            android:text="@string/fully_redeemed"
             app:backgroundTint="@android:color/holo_red_light" />
     </LinearLayout>
 </FrameLayout>

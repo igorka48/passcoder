@@ -5,6 +5,8 @@ import owlsdevelopers.org.passcoder.domain.usecases.*
 val useCaseModule = module {
     single { AddPasscode(get()) }
     single { GetPasscodes(get()) }
+    single { MarkPasscodeAlreadyRedeemed(get()) }
+    single { MarkPasscodeFullyRedeemed(get()) }
     single { Login(get()) }
     single { GetCurrentUser(get()) }
     single { Logout(get()) }
