@@ -29,10 +29,10 @@ android {
 def google_services_version = '19.0.0'
 def firebase_core_version = '18.0.3'
 def firebase_auth_version = '20.0.4'
-def firebase_ui_auth_version = '6.4.0'
+def firebase_ui_auth_version = '7.2.0'
 def firebase_crash_version = '16.2.1'
 def firebase_db_version = '19.7.0'
-def koin_version = '2.2.2'
+def koin_version = "3.1.5"
 def lifecycle_version = "2.0.0"// Choose authentication providers
 def coroutinesVersion = '1.3.8'
 def coreKtxVersion = '1.3.2'
@@ -58,8 +58,10 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
-    // Koin for Kotlin
-    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    // Koin Core features
+    implementation "io.insert-koin:koin-core:$koin_version"
+    // Koin main features for Android
+    implementation "io.insert-koin:koin-android:$koin_version"
 
     implementation "androidx.core:core-ktx:$coreKtxVersion"
     implementation "androidx.fragment:fragment-ktx:1.5.0-alpha03"
@@ -78,8 +80,8 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test:runner:1.5.0-alpha01'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0-alpha04'
-    // Koin for Unit tests
-    testImplementation "org.koin:koin-test:$koin_version"
+    // Koin Test features
+    testImplementation "io.insert-koin:koin-test:$koin_version"
 }
 
 
