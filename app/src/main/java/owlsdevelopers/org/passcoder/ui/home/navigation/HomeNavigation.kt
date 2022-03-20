@@ -9,7 +9,7 @@ fun HomeFragment.navigationFun(): (HomeNavigationEvents) -> Unit = {
             navController.navigate(R.id.action_homeFragment_to_addPasscodeFragment)
         }
         HomeNavigationEvents.LoginScreen -> {
-            navController.popBackStack(R.id.loginFragment, false)
+            navController.navigate(R.id.action_global_loginFragment)
         }
     }
 }
