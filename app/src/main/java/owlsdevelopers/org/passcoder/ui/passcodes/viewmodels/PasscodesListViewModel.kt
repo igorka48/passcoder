@@ -1,8 +1,12 @@
 package owlsdevelopers.org.passcoder.ui.passcodes.viewmodels
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.paging.PagedList
+import androidx.lifecycle.viewModelScope
+import androidx.paging.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import owlsdevelopers.org.passcoder.domain.core.PagedData
 import owlsdevelopers.org.passcoder.domain.models.NetworkState
 import owlsdevelopers.org.passcoder.domain.models.Passcode
@@ -14,7 +18,7 @@ import owlsdevelopers.org.passcoder.ui.passcodes.navigation.PasscodesNavigationE
 
 class PasscodesListViewModel constructor(
     getPasscodes: GetPasscodes,
-    private val copyTextToClipboard: CopyTextToClipboard
+    private val copyTextToClipboard: CopyTextToClipboard,
 ) : BasicViewModel() {
 
     companion object {
@@ -25,36 +29,38 @@ class PasscodesListViewModel constructor(
 
     private val networkState: MediatorLiveData<NetworkState> = MediatorLiveData()
     private val initialState: MediatorLiveData<NetworkState> = MediatorLiveData()
-    private val mLivePagedList: MediatorLiveData<PagedList<Passcode>> = MediatorLiveData()
-    val livePagedList: LiveData<PagedList<Passcode>>
-      get() = mLivePagedList
+    lateinit var livePagedList: Flow<PagingData<Passcode>>
 
-    private var pagedData: PagedData<Passcode>? = null
 
     init {
-        val pagedListConfig = PagedList.Config.Builder()
-            .setEnablePlaceholders(PAGED_LIST_ENABLE_PLACEHOLDERS)
-            .setInitialLoadSizeHint(PAGED_LIST_LOAD_SIZE)
-            .setPageSize(PAGED_LIST_PAGE_SIZE)
-            .build()
+        val pagedListConfig = PagingConfig(
+            pageSize = PAGED_LIST_PAGE_SIZE,
+            enablePlaceholders = PAGED_LIST_ENABLE_PLACEHOLDERS,
+            initialLoadSize = PAGED_LIST_LOAD_SIZE
+        )
 
-        getPasscodes(
-            GetPasscodes.Params(
-                username = "",
-                pagedListConfig = pagedListConfig
-            ), useCaseExceptionHandler
-        ) { handleListData(it) }
+        viewModelScope.launch {
+            withContext(Dispatchers.Main.immediate) {
+                handleListData(
+                    getPasscodes.run(
+                        GetPasscodes.Params(
+                            username = "",
+                            pagedListConfig = pagedListConfig
+                        )
+                    )
+                )
+            }
+        }
     }
 
     private fun handleListData(data: PagedData<Passcode>) {
-        pagedData = data
-        mLivePagedList.addSource(data.getData()) { mLivePagedList.value = it }
+        livePagedList = data.getData().cachedIn(viewModelScope)
         networkState.addSource(data.getLoadState()) { networkState.value = it }
         initialState.addSource(data.getInitialLoadState()) { initialState.value = it }
     }
 
     fun reloadCommand() {
-        pagedData?.invalidate()
+
     }
 
     fun showActionsCommand(item: Passcode) {

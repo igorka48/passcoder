@@ -1,16 +1,16 @@
 package owlsdevelopers.org.passcoder.ui.passcodes.adapters;
 
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import owlsdevelopers.org.passcoder.R
 import owlsdevelopers.org.passcoder.databinding.CellCodeBinding
 import owlsdevelopers.org.passcoder.domain.models.Passcode
 
 
-class PasscodeAdapter(private val callback: Callback) : PagedListAdapter<Passcode, PasscodeAdapter.ViewHolder>(POST_COMPARATOR) {
+class PasscodeAdapter(private val callback: Callback) : PagingDataAdapter<Passcode, PasscodeAdapter.ViewHolder>(POST_COMPARATOR) {
 
     companion object {
         const val ITEM_LAYOUT = R.layout.cell_code

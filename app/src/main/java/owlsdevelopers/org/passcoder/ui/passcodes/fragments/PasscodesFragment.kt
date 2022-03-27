@@ -1,6 +1,9 @@
 package owlsdevelopers.org.passcoder.ui.passcodes.fragments
 
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import owlsdevelopers.org.passcoder.R
 import owlsdevelopers.org.passcoder.databinding.FragmentPasscodesBinding
@@ -43,10 +46,10 @@ class PasscodesFragment : BasicFragment<PasscodesNavigationEvents>(R.layout.frag
     private fun initRecyclerView() {
         val adapter = PasscodeAdapter(this)
         viewBinding.recyclerView.adapter = adapter
-        viewModel.livePagedList.observe(viewLifecycleOwner) {
-            if (viewBinding.swipeRefresh.isRefreshing)
-                viewBinding.swipeRefresh.isRefreshing = false
-            adapter.submitList(it)
+        lifecycleScope.launch {
+            viewModel.livePagedList.collectLatest { pagingData ->
+                adapter.submitData(pagingData)
+            }
         }
     }
 

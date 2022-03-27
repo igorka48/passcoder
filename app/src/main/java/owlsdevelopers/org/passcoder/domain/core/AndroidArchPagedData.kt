@@ -1,27 +1,31 @@
 package owlsdevelopers.org.passcoder.domain.core
 
 import androidx.lifecycle.LiveData
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
 import owlsdevelopers.org.passcoder.domain.models.NetworkState
 
 
-class AndroidArchPagedData<T>(
-        private val pagedList: LiveData<PagedList<T>>,
-        private val dataSourceFactory: SearchableDataSourceFactory<*, T>
+class AndroidArchPagedData<T : Any>(
+    private val pagedList: Pager<out Any, T>,
+    private val dataSourceFactory: SearchableDataSourceFactory<*, T>
 ) : PagedData<T> {
 
     companion object {
-        suspend fun <T> BuildPagedData(
+        fun <T : Any> buildPagedData(
                 sourceFactory: SearchableDataSourceFactory<*, T>,
-                config: PagedList.Config
+                config: PagingConfig
         ): PagedData<T> {
 
-            val livePagedList = LivePagedListBuilder(sourceFactory, config)
-                .build()
-            return AndroidArchPagedData(livePagedList, sourceFactory)
+           val pager = Pager(
+                // Configure how data is loaded by passing additional properties to
+                // PagingConfig, such as prefetchDistance.
+               config
+            ) {sourceFactory}
+           return AndroidArchPagedData(pager, sourceFactory)
         }
-
     }
 
 
@@ -38,11 +42,10 @@ class AndroidArchPagedData<T>(
         return dataSourceFactory.getLoadState()
     }
 
-    override fun getData(): LiveData<PagedList<T>> {
-        return pagedList
+    override fun getData(): Flow<PagingData<T>> {
+        return pagedList.flow
     }
 
     override fun invalidate() {
-        pagedList.value?.dataSource?.invalidate()
     }
 }
