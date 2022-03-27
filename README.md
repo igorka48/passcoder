@@ -9,6 +9,6 @@ Sample how we can use Google's Paging library with Firebase BD and coroutines
 [Clean Architecture for Android](https://fernandocejas.com/2018/05/07/architecting-android-reloaded)
 based on [Google's Android Architecture Components](https://developer.android.com/topic/libraries/architecture)  
 
-[Paging library](https://developer.android.com/topic/libraries/architecture/paging) for easy big list pagination
+[Paging library 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview) for easy big list pagination
 
 
